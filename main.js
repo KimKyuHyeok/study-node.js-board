@@ -93,6 +93,71 @@ app.post('/board/formProc', (req, res) => {
     
 })
 
+app.get('/board/:board_id', (req, res) => {
+    const boardId = req.params.board_id;
+    const num = req.session.usrNum;
+    var sql = `SELECT b.board_id, b.title, b.content, u.id as usrNum, u.userId as usrId FROM board b LEFT JOIN user u on b.id = u.id WHERE board_id = ?`
+
+    connection.query(sql, boardId, function(err, results){
+        if (err) throw err;
+
+        console.log(results);
+        
+        res.render('board_detail', {board: results});
+    });
+});
+
+app.get('/board/:board_id/update', (req, res) => {
+    const boardId = req.params.board_id;
+
+    var sql = `SELECT * FROM board WHERE board_id = ?`
+
+    connection.query(sql, boardId, function(err, results) {
+        if(err) throw err;
+        if(results[0].id != req.session.usrNum) {
+            res.send(`<script>alert("수정 권한이 존재하지 않습니다"); document.location.href="/board/${boardId}"</script>`);
+        } else {
+            res.render('form_update', {board: results});
+        }
+    });
+
+});
+
+app.get('/board/:board_id/delete', (req, res) => {
+    const boardId = req.params.board_id;
+
+    var sql = `SELECT * FROM board WHERE board_id = ?`
+
+    connection.query(sql, boardId, function(err, results) {
+        if(err) throw err;
+        if(results[0].id != req.session.usrNum) {
+            res.send(`<script>alert("삭제 권한이 존재하지 않습니다"); document.location.href="/board/${boardId}"</script>`);
+        } else {
+            var deleteSql = `DELETE FROM board WHERE board_id = ?`
+            
+            connection.query(deleteSql, boardId, function(err, results) {
+                if (err) throw err;
+                res.send(`<script>alert("삭제가 완료되었습니다."); document.location.href="/board";</script>`);
+            });
+        }
+    });
+    
+})
+
+app.post('/board/updateProc', (req, res) => {
+    const title = req.body.title;
+    const content = req.body.content;
+    const boardId = req.body.board_id;
+
+    var sql = `UPDATE board SET title = ?, content = ? WHERE board_id = ?`
+
+    connection.query(sql, [title, content, boardId], function(err, results) {
+        if (err) throw err;
+        
+        res.send(`<script>alert("수정이 완료되었습니다."); document.location.href="/board/${boardId}"; </script>`)
+    })
+})
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 })

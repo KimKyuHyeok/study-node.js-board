@@ -1,0 +1,16 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%-include('header.ejs')%>
+
+    <h2><%= board[0].title%></h2><span>작성자 : <%= board[0].usrId%></span>
+    <p><%= board[0].content%></p>
+
+    <a href="/board/<%=board[0].board_id%>/update">수정</a>
+    <a href="/board/<%=board[0].board_id%>/delete">삭제</a>
+</body>
+</html>
