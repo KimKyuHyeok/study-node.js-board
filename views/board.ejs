@@ -1,0 +1,30 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%-include('header.ejs')%>
+
+    
+    <h1>게시판</h1>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+        </tr>
+        <% rows.forEach(row => { %>
+            <tr>
+                <td><span><%= row.board_id %></span></td>
+                <td><a href="/board/<%=row.board_id%>"><%= row.title %></a></td>
+                <td><span><%= row.id %></span></td>
+            </tr>
+        <% }); %>
+    </table>
+    <a href="/board/form">글쓰기</a>
+
+    
+</body>
+</html>

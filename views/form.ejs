@@ -1,0 +1,21 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%-include('header.ejs')%>
+
+    <form action="/board/formProc" method="post">
+        <ul>
+            <li>제목 : <input type="text" name="title"></li>
+            <li>내용 <br>
+                <textarea name="content" cols="50" rows="10"></textarea>
+            </li>
+            <button>작성</button>
+        </ul>  
+    </form> 
+    
+</body>
+</html>

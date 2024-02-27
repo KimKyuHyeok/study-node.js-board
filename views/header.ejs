@@ -1,0 +1,21 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>홈페이지에 오신 것을 환영합니다.</h1>
+
+    <header style="border-bottom:1px solid #aaa; margin-bottom:10px; padding-bottom: 10px;;">
+        <nav>
+            <a href="/">홈</a> |
+            <% if (session.is_logined) { %>
+                <a href="/logout">로그아웃</a> |
+            <% } else { %>
+                <a href="/login">로그인</a> |
+            <% } %>
+            <a href="/board">게시판</a> |
+        </nav>
+    </header>

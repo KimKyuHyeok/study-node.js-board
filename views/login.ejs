@@ -1,0 +1,18 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN PAGE</title>
+</head>
+<body>
+    <%-include('header.ejs')%>
+    
+    <main>
+        <form action="loginProc" method="post">
+            <label for="user-id">ID :</label><input type="text" name="userId" required>
+            <label for="user-pw">PW :</label><input type="text" name="userPw" required>
+            <button>가입하기</button>
+        </form>
+    </main>
+</body>
+</html>
